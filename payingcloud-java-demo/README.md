@@ -2,7 +2,7 @@
 
 该项目用于演示payingcloud-java-sdk的使用。
 
-使用方式如下：
+运行方式如下：
 
 1. 修改配置文件`src/main/resources/application.yml`中的参数
    ```

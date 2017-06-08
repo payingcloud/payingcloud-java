@@ -18,11 +18,11 @@ payingcloud-java是对[Payingcloud聚合支付API](https://payingcloud.github.io
     </dependency>
     ```
 1. 使用平台密钥构建PayingCloud对象
-```java
-    PayingCloud payingcloud = new PayingCloud("Your AccessKeyId", "Your AccessKeySecret");
-```
+    ```java
+        PayingCloud payingcloud = new PayingCloud("Your AccessKeyId", "Your AccessKeySecret");
+    ```
 1. 使用PayingCloud发起对接口的调用，并对调用结果做相应处理
-```java
-    PcChargeRequest chargeRequest = new PcChargeRequest("orderNo", "subject", amount, channel);
-    PcCharge charge = payingcloud.execute(chargeRequest);
-```
+    ```java
+        PcChargeRequest chargeRequest = new PcChargeRequest("orderNo", "subject", amount, channel);
+        PcCharge charge = payingcloud.execute(chargeRequest);
+    ```
