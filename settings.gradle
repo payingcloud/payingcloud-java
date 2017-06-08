@@ -1,0 +1,3 @@
+rootProject.name = 'payingcloud-java'
+include ':payingcloud-java-sdk'
+include ':payingcloud-java-demo'

@@ -1,0 +1,50 @@
+apply plugin: 'org.springframework.boot'
+apply plugin: 'com.bmuschko.docker-remote-api'
+
+dependencies {
+    // Payingcloud Java SDK
+    compile 'cn.payingcloud:payingcloud-java:1.0.5'
+    // 微信公众号相关工具（用于获取openid）
+    compile 'cn.payingcloud.weixin:payingcloud-weixin-java:1.0'
+
+    compile 'io.springfox:springfox-swagger2:2.7.0'
+    compile 'io.springfox:springfox-swagger-ui:2.7.0'
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-actuator'
+
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+}
+
+bootRun {
+    addResources = true
+}
+
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
+
+import java.text.SimpleDateFormat
+
+docker {
+    registryCredentials {
+        url = 'https://registry.cn-beijing.aliyuncs.com'
+        username = project.hasProperty('dockerUser') ? project.property('dockerUser') : project.getenv('DOCKER_USER')
+        password = project.hasProperty('dockerPassword') ? project.property('dockerPassword') : project.getenv('DOCKER_PASSWORD')
+    }
+}
+
+ext {
+    dockerImageName = 'registry.cn-beijing.aliyuncs.com/payingcloud/demo:' + new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())
+}
+
+task dockerBuild(type: DockerBuildImage, dependsOn: bootRepackage) {
+    copy {
+        from("src/main/docker/Dockerfile")
+        into("build/libs")
+    }
+    inputDir = file('build/libs')
+    tag = dockerImageName
+}
+
+task dockerPush(type: DockerPushImage, dependsOn: dockerBuild) {
+    imageName = dockerBuild.tag
+}
