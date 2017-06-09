@@ -33,7 +33,7 @@ public class ApiConfig {
     public static class Properties {
 
         @NotBlank
-        private String endpoint;
+        private String endpoint = "https://api.payingcloud.cn";
 
         @NotBlank
         private String accessKeyId;

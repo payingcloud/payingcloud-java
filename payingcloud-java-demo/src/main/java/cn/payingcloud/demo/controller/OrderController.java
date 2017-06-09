@@ -54,6 +54,7 @@ class OrderController {
                 String url = wxBasicApi.getBaseAuthorizeUrl(redirectUrl, channel.toString());
                 servletResponse.sendRedirect(url);
                 return;
+            // 快付通固定收银台直接展示即可
             case KFTPAY_CASHIER:
                 servletResponse.sendRedirect("/pages/qrcode.html?codeUrl=https://jhpay.kftpay.com.cn/cloud/cloudplatform/payChannel/qrcodePay/000020010000000001.html");
                 return;
@@ -86,8 +87,6 @@ class OrderController {
     @PostMapping("/charge/success")
     @ResponseBody
     public String onChargeSuccess(@RequestBody String body, @RequestHeader String sign) throws IOException, SignatureException {
-        logger.info("body:" + body);
-        logger.info("sign:" + sign);
         if (SignatureUtils.verify(body, sign)) {
             logger.info("验签通过");
         } else {
@@ -97,7 +96,7 @@ class OrderController {
         PcCharge charge = mapper.readValue(body, PcCharge.class);
         String chargeNo = charge.getChargeNo();
         logger.info("收到单号[{}]的收款成功通知", chargeNo);
-        return "success";
+        return "success"; // 处理成功后应返回success，否则将重复接收
     }
 
     @ApiOperation("退款")
@@ -116,12 +115,10 @@ class OrderController {
         servletResponse.getWriter().flush();
     }
 
-    @ApiOperation("退款回调")
+    @ApiOperation("退款回调（通知）")
     @PostMapping("/refund/success")
     @ResponseBody
     public String onRefundSuccess(@RequestBody String body, @RequestHeader String sign) throws SignatureException, IOException {
-        logger.info("body:" + body);
-        logger.info("sign:" + sign);
         if (SignatureUtils.verify(body, sign)) {
             logger.info("验签通过");
         } else {
@@ -131,7 +128,7 @@ class OrderController {
         PcRefund refund = mapper.readValue(body, PcRefund.class);
         String refundNo = refund.getRefundNo();
         logger.info("收到单号[{}]的退款成功通知", refundNo);
-        return "success";
+        return "success"; // 处理成功后应返回success，否则将重复接收
     }
 
     @ApiOperation("查询收款列表")
@@ -206,49 +203,49 @@ class OrderController {
             case BDPAY_WAP://已测通
                 servletResponse.sendRedirect(charge.getCredentials().get("url"));
                 break;
-            case ALIPAY_APP:
+            case ALIPAY_APP://已测通
                 servletResponse.getWriter().write(charge.getCredentials().get("requestString"));
                 break;
             case ALIPAY_DIRECT: // 已测通
             case BJPAY_WEB://已测通
             case CHINAPAY_WEB://已测通
             case JDPAY_WEB://已测通
-            case JDPAY_WAP:
-            case YEEPAY_WAP:
+            case JDPAY_WAP://已测通
+            case YEEPAY_WAP://已测通
             case ALIPAY_WAP: // 已测通
             case UPACP_GATEWAY: // 已测通
                 servletResponse.setContentType("text/html;charset=UTF-8");
                 servletResponse.getWriter().write(charge.getCredentials().get("html"));
                 break;
-            case YEEPAY_WEB:
+            case YEEPAY_WEB://已测通
                 servletResponse.setContentType("text/html;charset=gbk");
                 servletResponse.getWriter().write(charge.getCredentials().get("html"));
                 break;
             case BDPAY_QR://已测通
                 servletResponse.sendRedirect("/pages/qrcode.html?codeImage=" + charge.getCredentials().get("url"));
                 break;
-            case WXPAY_APP:
+            case WXPAY_APP://已测通
                 servletResponse.getWriter().write(charge.getCredentials().toString());
                 break;
             case WXPAY_NATIVE: // 已测通
             case BJPAY_WX: // 已测通
             case ALIPAY_QR: // 已测通
-            case KFTPAY_WX:
-            case KFTPAY_ALI:
-            case JDPAY_QR:
-            case CMBCPAY_T1_ALI:
-            case WEBANKPAY_WX_QR:
-            case CMBCPAY_T0_ALI:
-            case CMBCPAY_T0_WX_QR:
-            case CMBCPAY_T1_WX_QR:
-            case CMBCPAY_T0_QQ:
-            case CMBCPAY_T1_QQ:
+            case KFTPAY_WX://已测通
+            case KFTPAY_ALI://已测通
+            case JDPAY_QR://已测通
+            case CMBCPAY_T1_ALI://已测通
+            case WEBANKPAY_WX_QR://已测通
+            case CMBCPAY_T0_ALI://已测通
+            case CMBCPAY_T0_WX_QR://已测通
+            case CMBCPAY_T1_WX_QR://已测通
+            case CMBCPAY_T0_QQ://已测通
+            case CMBCPAY_T1_QQ://已测通
                 servletResponse.sendRedirect("/pages/qrcode.html?codeUrl=" + charge.getCredentials().get("codeUrl"));
                 break;
             case WXPAY_JSAPI: // 已测通
-            case CMBCPAY_T0_WX_JSAPI:
-            case CMBCPAY_T1_WX_JSAPI:
-            case WEBANKPAY_WX_JSAPI:
+            case CMBCPAY_T0_WX_JSAPI://已测通
+            case CMBCPAY_T1_WX_JSAPI://已测通
+            case WEBANKPAY_WX_JSAPI://已测通
                 String params = "appId=" + charge.getCredentials().get("appId") + "&" +
                         "timeStamp=" + charge.getCredentials().get("timeStamp") + "&" +
                         "nonceStr=" + charge.getCredentials().get("nonceStr") + "&" +
