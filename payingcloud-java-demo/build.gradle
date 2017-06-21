@@ -27,8 +27,8 @@ import java.text.SimpleDateFormat
 docker {
     registryCredentials {
         url = 'https://registry.cn-beijing.aliyuncs.com'
-        username = project.hasProperty('dockerUser') ? project.property('dockerUser') : project.getenv('DOCKER_USER')
-        password = project.hasProperty('dockerPassword') ? project.property('dockerPassword') : project.getenv('DOCKER_PASSWORD')
+        username = project.hasProperty('dockerUser') ? project.property('dockerUser') : 'dockerUser'
+        password = project.hasProperty('dockerPassword') ? project.property('dockerPassword') : 'dockerPassword'
     }
 }
 

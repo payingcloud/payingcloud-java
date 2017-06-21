@@ -37,11 +37,8 @@ public class WeixinConfig {
         private String appId;
         @NotBlank
         private String appSecret;
-
+        @NotBlank
         private String token;
-
-        public Properties() {
-        }
 
         public String getAppId() {
             return appId;
