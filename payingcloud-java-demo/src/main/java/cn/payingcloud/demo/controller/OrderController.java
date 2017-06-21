@@ -156,7 +156,7 @@ class OrderController {
         String chargeNo = new Date().getTime() + "";
         String subject = "支付演示";
         String remark = "备注";
-        int amount = 1;
+        int amount = 10;
         String metadata = "元数据";
         PcChargeRequest request = new PcChargeRequest(chargeNo, subject, amount, channel)
                 .setRemark(remark)
