@@ -3,7 +3,7 @@ apply plugin: 'com.bmuschko.docker-remote-api'
 
 dependencies {
     // Payingcloud Java SDK
-    compile 'cn.payingcloud:payingcloud-java:1.0.5'
+    compile 'cn.payingcloud:payingcloud-java:1.0.6'
     // 微信公众号相关工具（用于获取openid）
     compile 'cn.payingcloud.weixin:payingcloud-weixin-java:1.0'
 

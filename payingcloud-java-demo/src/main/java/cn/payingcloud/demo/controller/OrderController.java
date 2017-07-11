@@ -240,6 +240,8 @@ class OrderController {
             case CMBCPAY_T1_WX_QR://已测通
             case CMBCPAY_T0_QQ://已测通
             case CMBCPAY_T1_QQ://已测通
+            case CMBCPAY_T1_JD://已测通
+            case CMBCPAY_T1_BD://已测通
                 servletResponse.sendRedirect("/pages/qrcode.html?codeUrl=" + charge.getCredentials().get("codeUrl"));
                 break;
             case WXPAY_JSAPI: // 已测通

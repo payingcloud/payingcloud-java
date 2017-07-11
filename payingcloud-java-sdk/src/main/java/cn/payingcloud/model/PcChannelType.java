@@ -35,6 +35,8 @@ public enum PcChannelType {
     CMBCPAY_T1_WX_JSAPI, //民生银行T1微信公众号支付
     CMBCPAY_T0_QQ,       //民生银行T0QQ扫码支付
     CMBCPAY_T1_QQ,       //民生银行T1QQ扫码支付
+    CMBCPAY_T1_JD,       //民生银行T1京东扫码支付
+    CMBCPAY_T1_BD,       //民生银行T1百度扫码支付
     WEBANKPAY_WX_QR,     //微众银行微信扫码支付
     WEBANKPAY_WX_JSAPI,  //微众银行微信公众号支付
 }
