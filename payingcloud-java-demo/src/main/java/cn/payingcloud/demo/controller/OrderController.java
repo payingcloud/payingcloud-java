@@ -166,6 +166,10 @@ class OrderController {
         if (openId != null) {
             request.withExtra("openId", openId);
         }
+        if (channel == PcChannelType.WEBANKPAY_WX_H5) {
+            request.withExtra("mchCreateIp", "115.100.63.170");
+            request.withExtra("sceneInfo", "{\"h5_info\": {\"type\":\"Wap\",\"wap_url\":\"http://demo.payingcloud.cn\",\"wap_name\": \"PayingCloud Demo\"}}");
+        }
         request.setNotifyUrl(buildChargeNotifyUrl());
         return request;
     }
@@ -202,6 +206,9 @@ class OrderController {
             case BDPAY_WEB://已测通
             case BDPAY_WAP://已测通
                 servletResponse.sendRedirect(charge.getCredentials().get("url"));
+                break;
+            case WEBANKPAY_WX_H5:
+                servletResponse.sendRedirect(charge.getCredentials().get("mwebUrl"));
                 break;
             case ALIPAY_APP://已测通
                 servletResponse.getWriter().write(charge.getCredentials().get("requestString"));

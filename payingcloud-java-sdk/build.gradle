@@ -1,5 +1,5 @@
 description = 'Java SDK for Payingcloud API'
-version = '1.0.6'
+version = '1.0.7'
 targetCompatibility = '1.6'
 sourceCompatibility = '1.6'
 
