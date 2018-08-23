@@ -14,7 +14,7 @@ payingcloud-java是对[Payingcloud聚合支付API](https://payingcloud.github.io
     <dependency>
         <groupId>cn.payingcloud</groupId>
         <artifactId>payingcloud-java</artifactId>
-        <version>1.0.5</version>
+        <version>1.0.8</version>
     </dependency>
     ```
 1. 使用平台密钥构建PayingCloud对象
